@@ -9,6 +9,10 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Send notification to ntfy
+      - name: Send basic notification to ntfy
         run: |
           curl -d "🚀 New commit pushed to main branch by $GITHUB_ACTOR: $GITHUB_SHA" ntfy.sh/devops-itla
+
+      - name: Send detailed notification to ntfy
+        run: |
+          curl -d "🚀 Repo: $GITHUB_REPOSITORY | Commit: $GITHUB_SHA | Message: ${{ github.event.head_commit.message }}" ntfy.sh/devops-itla
