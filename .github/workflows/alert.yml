@@ -1,0 +1,14 @@
+name: Alert Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification to ntfy
+        run: |
+          curl -d "🚀 New commit pushed to main branch by $GITHUB_ACTOR: $GITHUB_SHA" ntfy.sh/devops-itla
