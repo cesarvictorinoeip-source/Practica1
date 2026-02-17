@@ -1,0 +1,29 @@
+name: Deploy to Surge
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  SURGE_DOMAIN: cesar-practica4.surge.sh
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar Surge
+        run: npm install -g surge
+
+      - name: Deploy a Surge
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        run: surge ./ $SURGE_DOMAIN --token $SURGE_TOKEN
